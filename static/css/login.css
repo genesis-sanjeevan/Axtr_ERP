@@ -1,0 +1,129 @@
+/* General Styles */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background-image: url("../images/background.jpg"); /* Adjust the path as needed */
+  background-size: cover;
+  background-position: center;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+/* Container */
+.container {
+  display: flex;
+  justify-content: space-between;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 10px;
+  padding: 20px;
+  width: 70%;
+  max-width: 900px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Left Section */
+.left-section {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.left-section img {
+  width: 150px;
+  height: auto;
+}
+
+/* Right Section */
+.right-section {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;  /* Stack elements vertically */
+  align-items: center;     /* Center elements horizontally */
+  justify-content: center; /* Center content vertically */
+}
+
+/* Title Style */
+.right-section h1 {
+  font-family: "DM Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400; /* Choose a weight that works well for your design */
+  font-style: normal;
+  margin-bottom: 10px; /* Adds space below the title */
+}
+
+/* Form */
+.form {
+  display: flex;
+  flex-direction: column; /* Stack inputs vertically */
+  gap: 10px;  /* Adjust the gap between inputs */
+  width: 100%; /* Ensure form fields take up full width */
+  align-items: center; /* Center the inputs */
+}
+
+input[type="text"], input[type="password"] {
+  width: 80%; /* Adjust width to be 80% of the form width */
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background: #222;
+  color: white;
+}
+
+input[type="submit"] {
+  width: 80%; /* Same width as the input fields */
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+input[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+/* Social Buttons */
+.social-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.social-buttons img {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+/* Flash Message */
+p.valid {
+  text-align: center;
+  color: #f30d0d;
+  font-weight: 500;
+  padding-top: 2px;
+  font-size: 10px;  /* Reduce the text size */
+  margin-top: 5px; /* Add space between social buttons and the message */
+  margin-bottom: 5px; /* Add space at the bottom for consistency */
+} 
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+      flex-direction: column;
+      width: 90%;
+  }
+
+  .left-section, .right-section {
+      flex: none;
+      text-align: center;
+      padding: 10px;
+  }
+}

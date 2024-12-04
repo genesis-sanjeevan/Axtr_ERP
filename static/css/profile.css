@@ -1,0 +1,149 @@
+.top{
+    font-size: 3em;
+    font-weight: bold;
+    text-align: center;
+}
+.wrap{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 30px;
+    max-width: 0px;
+    margin-top: 10px; 
+}
+.box{
+    background: gray;
+    border-radius: 10px;
+}
+.social{
+    /* margin-top: -270px; */
+    background: #2b3da6;
+    border-radius: 0 20px 20px 0 ;
+    position: absolute;
+}
+a{
+    display: flex;
+    margin: 5px;    
+    position: relative;
+    text-decoration: none;
+    font-size:15px;
+    color:#fff;
+    padding: 5px;
+}
+.fa{
+    line-height: 30px;
+    width:30px;
+    height: 30px;
+    position: relative;
+    text-align: center;
+    
+}
+.text{
+    text-align: center;
+    color:#fff;
+}
+p{
+    font-size:20px;
+}
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  align-self: center;
+}
+h1{
+  text-align: center;
+}
+h2{
+  text-align: center;
+}
+.w3-container {
+  display: block;
+  margin-left: 25%;
+}
+.form{
+  font-size: 30px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+select{
+  background-color: #d9d9d9;
+  color:#000;
+  text-shadow:0 1px 0 rgba(0,0,0,0.4);
+}
+.submit{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 30%;
+  border-radius: 20px;
+}
+option:not(:checked) {
+  background-color: #FFF;
+}
+.sidenav {
+  height: 100%; 
+  width: 25%; 
+  position: fixed;
+  z-index: 1; 
+  top: 0; 
+  left: 0;
+  background-color: #003f72; 
+  overflow-x: hidden; 
+  padding-top: 20px;
+}
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 30px;
+  color: #bdbdbd;
+  display: block;
+}
+.sidenav a:hover {
+  color: #ffffff;
+}
+.main {
+  padding: 0px 10px;
+}
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+.sidenav a, .dropdown-btn {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 27px;
+  color: #818181;
+  display: block;
+  border: none;
+  background: none;
+  width:100%;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+}
+
+/* On mouse-over */
+.sidenav a:hover, .dropdown-btn:hover {
+  color: #f1f1f1;
+}
+
+/* Add an active class to the active dropdown button */
+.active {
+  color: white;
+}
+
+/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+.dropdown-container {
+  display: none;
+  background-color: #003f72;
+  padding-left: 8px;
+}
+
+/* Optional: Style the caret down icon */
+.fa-caret-down {
+  float: right;
+  padding-right: 8px;
+}

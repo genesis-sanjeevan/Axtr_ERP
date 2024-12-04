@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<title>Landing</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+    .center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+h1{
+  text-align: center;
+}
+h2{
+  text-align: center;
+}
+.w3-container {
+  display: block;
+  margin-left: 25%;
+}
+body {
+color: #000308;
+background: #FFFFFF;
+font: Verdana,sans-serif;
+}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+form{
+    font-size: 28px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+.submit{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 30%;
+  border-radius: 20px;
+}
+.containerf{
+  display: flex;
+  align-items: center;
+  justify-content: left;
+}
+  
+input[type="checkbox"]{
+  display:none;
+}
+
+input[type="checkbox"]:hover + label:before{
+  opacity: .5;
+}
+
+.checkbox{
+  display:inline-block;
+  position:relative;
+  padding-left:40px;
+  line-height: 30px;
+  font-size: 20px;
+  cursor: pointer;
+  color: #111;
+  font-weight: 200;
+}
+
+.checkbox:before{
+  z-index:15;
+  content: '';
+  position:absolute;
+  left:0;
+  top: 6px;
+  transition:all 0.3s ease;
+  cursor:pointer;
+  width:20px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #444;
+  height:20px;
+}
+input[type="checkbox"]:checked + label{
+  color:#000;
+}
+
+input[type="checkbox"]:checked +  label:before{
+  border-color: transparent;
+  border-left-color: #2ecc71;
+  border-bottom-color: #2ecc71;
+  transform:rotate(-50deg);
+  width:22px;
+  height:12px;
+  top: 3px;
+}
+ul{
+    list-style:none;
+}
+nav ul{
+    height:180px;
+    width:120%;
+    padding-left:10px;
+    overflow:hidden;
+    overflow-y:scroll;
+}
+</style>
+<body>
+    <div>
+
+        <div class="w3-sidebar w3-bar-block" style="width:25%; background-color:#003f72;">
+        
+          <img src="logo transparent-1.png" alt="L&T" class="center">
+          <h1 style="color:white; font-size:20px; font-family: Verdana;">USER NAME</h1>
+          <h2 style="color:white; font-size:20px; font-family: Verdana;">Designation</h2><br>
+          <button class="w3-bar-item w3-button" onclick="openCity('Employees')" style="color:white; font-size:25px;">Employees</button>
+          <button class="w3-bar-item w3-button" onclick="openCity('Projects')" style="color:white; font-size:25px;">Projects</button>
+          <button class="w3-bar-item w3-button" onclick="openCity('Plan')" style="color:white; font-size:25px;">Plan</button>
+          <button class="w3-bar-item w3-button" onclick="openCity('Reports')" style="color:white; font-size:25px;">Reports</button>
+          <button class="w3-bar-item w3-button" onclick="openCity('Add User')" style="color:white; font-size:25px;">Add User</button>
+          <button class="w3-bar-item w3-button" onclick="openCity('Log Out')" style="color:white; font-size:25px;">Log Out</button>
+        </div>
+        <div id="Plan" class="w3-container city">
+            <form class="form" id="dls" method="POST"><br><br>   
+                <h4>Date Today</h4>
+                <div id="datestamp"> 
+                    <script> 
+                        const date = new Date();
+                        console.log(date);
+                           let timestamp3 = document.getElementById("datestamp");
+                           let startDate = new Date();
+                           timestamp3.innerHTML = new Date().toLocaleDateString();;
+                        </script><br><br>
+                        Employees:
+                        <div class="containerf">
+                            <div class="list"><nav><ul>
+                              <div class="checkbox-container"><li>
+                                <input type="checkbox" id="apple"/>
+                                <label class="checkbox" for="apple">Apple Mac</label>
+                              </div></li>
+                              <div class="checkbox-container"><li>
+                                <input type="checkbox" id="linux"/>
+                                <label class="checkbox" for="linux">Linux OS</label>
+                              </div></li>
+                              <div class="checkbox-container"><li>
+                                <input type="checkbox" id="linux"/>
+                                <label class="checkbox" for="linux">Linux OS</label>
+                              </div></li>
+                              <div class="checkbox-container"><li>
+                                <input type="checkbox" id="linux"/>
+                                <label class="checkbox" for="linux">Linux OS</label>
+                              </div></li>
+                              <div class="checkbox-container"><li>
+                                <input type="checkbox" id="linux"/>
+                                <label class="checkbox" for="linux">Linux OS</label>
+                              </div></li>
+                              <div class="checkbox-container"><li>
+                                <input type="checkbox" id="linux"/>
+                                <label class="checkbox" for="linux">Linux OS</label>
+                              </div></li>
+                              <div class="checkbox-container"><li>
+                                <input type="checkbox" id="linux"/>
+                                <label class="checkbox" for="linux">Linux OS</label>
+                              </div></li>
+                              <div class="checkbox-container"><li>
+                                <input type="checkbox" id="linux"/>
+                                <label class="checkbox" for="linux">Linux OS</label>
+                              </div></li></ul></nav>
+                            </div>
+                          </div>
+                    <label for="date" style="font-size: 28px;">Starting Date: </label><br>
+                    <input type="date" id="calender" name="calender" style="font-size: 20px; border-radius: 8px; background-color: #d9d9d9; width: 180px;" required >
+                    <br><br>
+                    <script type= "text/javascript">
+                      var mindate = moment().subtract(7,'d').format('YYYY-MM-DD')
+                      document.getElementById("calender").setAttribute("min", mindate);
+                    </script>
+                    <script type="text/javascript">
+                        var today = new Date();
+                        var dd = today.getDate();
+                        var mm = today.getMonth() + 1;
+                        var yyyy = today.getFullYear();
+            
+                        if (dd < 10) {
+                          dd = '0' + dd;
+                        }
+            
+                        if (mm < 10) {
+                          mm = '0' + mm;
+                        } 
+                            
+                        today = yyyy + '-' + mm + '-' + dd;
+                        document.getElementById("calender").setAttribute("max", today);
+            
+                        var leave = document.getElementById("project").innerHTML;
+                        if(leave = "(35) LEAVE - HALF DAY"){
+                          document.getElementById("workfield").innerHTML = " ";
+                          document.getElementById("section").innerHTML = " ";
+                          document.getElementById("dailyactivity").innerHTML = " ";
+                          document.getElementById("manhours").setAttribute("max",4);
+                          document.getElementById("manhours").setAttribute("min",3.5);
+                        }
+                  </script>
+
+<label for="date" style="font-size: 28px;">Finishing Date: </label><br>
+<input type="date" id="calender" name="calender" style="font-size: 20px; border-radius: 8px; background-color: #d9d9d9; width: 180px;" required >
+<br><br>
+<script type= "text/javascript">
+  var mindate = moment().subtract(7,'d').format('YYYY-MM-DD')
+  document.getElementById("calender").setAttribute("min", mindate);
+</script>
+<script type="text/javascript">
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1;
+    var yyyy = today.getFullYear();
+
+    if (dd < 10) {
+      dd = '0' + dd;
+    }
+
+    if (mm < 10) {
+      mm = '0' + mm;
+    } 
+        
+    today = yyyy + '-' + mm + '-' + dd;
+    document.getElementById("calender").setAttribute("max", today);
+
+    var leave = document.getElementById("project").innerHTML;
+    if(leave = "(35) LEAVE - HALF DAY"){
+      document.getElementById("workfield").innerHTML = " ";
+      document.getElementById("section").innerHTML = " ";
+      document.getElementById("dailyactivity").innerHTML = " ";
+      document.getElementById("manhours").setAttribute("max",4);
+      document.getElementById("manhours").setAttribute("min",3.5);
+    }
+</script>
+                 
+                 </div> 
+                
+                    
+            
+             
+            <label for="project" style="font-size: 28px;">Project:</label><br>
+            <select id="project" name="project" style="width:550px;border-radius: 8px; font-size: 22px; " required >
+                  <option disabled selected value></option>
+                  {% for projects in project %}
+                  <option value="{{projects}}">{{projects}}</option>      
+                  {% endfor %}
+            </select><br><br>
+            
+            
+            <label for="workfield" style="font-size: 28px;">Field of Work:</label><br>
+            <select id="workfield" name="workfield" style="width:550px;border-radius: 8px; font-size: 22px;" required>
+              <option disabled selected value> </option>    
+              {% for workfield in fieldowork%}
+              <option value="{{workfield}}">{{workfield}}</option>
+              {% endfor %}
+            </select><br><br>
+            
+            
+            <label for="section" style="font-size: 28px;">Section:</label><br>
+            <select id="section" name="SectioN" style="width:550px;border-radius: 8px; font-size: 22px;" required>
+              <option disabled selected value> </option>
+              {% for sections in section%}
+              <option value="{{workfield}}">{{sections}}</option>
+              {% endfor %}
+              </select><br><br>
+        
+            
+              <label for="manhours" style="font-size: 28px; display: inline-block;">Man Hours:</label>
+              <label for="progress" style="font-size: 28px; display: inline-block;  margin-left: 20%; padding-left: 0%;">Progress:</label><br>
+              <input type="number" id="manhours" name="manhours" min="0.5" step="0.5" style="border-radius: 8px; font-size: 22px; background-color: #d9d9d9; width: 100px; display: inline-block;">
+              <select id="progress" name="progress" style="border-radius: 8px; font-size: 22px; background-color: #d9d9d9; width: 200px; display: inline-block; margin-left: 30%; padding-left: 0%;">
+                <option disabled selected value></option>
+                {% for progress in progresses %}
+                <option value="{{progress}}">{{progress}}</option>
+                {% endfor %}
+              </select> <br><br>
+            
+              <label for="Comments" style="font-size: 28px; ">Comments:</label><br>
+              <textarea name="Comments" rows="5" cols="30" id="comments" style = 'border-radius: 8px; font-size: 20px; width: 550px; background-color: #d9d9d9;' placeholder=""></textarea>
+              <br><br>
+            
+              <input type="submit" class="submit"><br>
+            </form>
+            </div>

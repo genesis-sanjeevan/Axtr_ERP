@@ -1,0 +1,20 @@
+A composite key, also known as a composite primary key, is a combination of two or more columns that uniquely identify a record in a database table.
+
+In the context of an employee and project relationship, let's say you have two tables - "Employee" and "Project" - that have a many-to-many relationship, meaning each employee can be assigned to multiple projects, and each project can have multiple employees assigned to it.
+
+To represent this relationship, you would need a third table, which is commonly referred to as a junction table or an associative table. This table would contain foreign keys from both the "Employee" and "Project" tables, as well as any additional information about the employee's involvement in the project (e.g. start date, end date, role).
+
+To ensure that each record in this table is unique, you could use a composite key consisting of the "Employee ID" and "Project ID" columns. This would guarantee that each employee can only be assigned to a given project once, and each project can only have a given employee assigned to it once.
+
+Here's an example of what the junction table might look like:
+
+sql
+
+Employee_Project_Assignment
+---------------------------
+Employee ID
+Project ID
+Start Date
+End Date
+Role
+In this example, the combination of the "Employee ID" and "Project ID" columns would form the composite key.

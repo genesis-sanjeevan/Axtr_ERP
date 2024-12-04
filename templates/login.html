@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="{{ url_for('static', filename='css/login.css') }}" rel="stylesheet" >
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton+SC&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #000;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-image: url("{{ url_for('static', filename='images/background.jpg') }}");
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: space-between;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    padding: 20px;
+    width: 70%;
+    max-width: 900px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
+  }
+  
+  .left-section {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  /* Update Logo Size */
+  .left-section img {
+    width: 450px;
+    height: 450px;
+    object-fit: contain;
+  }
+
+  .right-section {
+    flex: 1;
+    padding: 20px;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .form input[type="text"], .form input[type="password"] {
+    width: 110%;
+    padding: 20px;
+    border: none;
+    border-radius: 5px;
+    background: #222;
+    color: white;
+  }
+
+  .form input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  .form input[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+
+  .social-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+
+  .social-buttons img {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <!-- Left Section -->
+    <div class="left-section">
+      <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="Brickshare Logo">
+      <!-- Move the title above the form -->
+      
+    </div>
+
+    <!-- Right Section -->
+    <!-- Right Section -->
+<div class="right-section">
+  <h1>EMPLOYEE LOG SHEET</h1>
+  <form method="POST">
+    <div class="form">
+      <input type="text" name="username" placeholder="Email" autocomplete="off" required>
+      <input type="password" name="password" placeholder="Password" required>
+      <input type="submit" value="Login">
+    </div>
+
+    <div class="social-buttons">
+      <a href="#"><img src="{{ url_for('static', filename='images/facebook-icon.png') }}" alt="Facebook"></a>
+      <a href="#"><img src="{{ url_for('static', filename='images/linkedin-icon.png') }}" alt="LinkedIn"></a>
+      <a href="#"><img src="{{ url_for('static', filename='images/google-icon.png') }}" alt="Google"></a>
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+          <p class="valid">{{message}}</p>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+  </form>
+</div>
+
+
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            {% for message in messages %}
+              <p class="valid">{{message}}</p>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+      </form>
+    </div>
+  </div>
+</body>
+</html>
+  

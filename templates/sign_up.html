@@ -1,0 +1,60 @@
+<form method="POST">
+  <h3>Sign Up</h3>
+  <div class="form">
+    <label for="id">ID</label>
+    <input type="id" 
+    class="form" 
+    id="id" 
+    name="id" 
+    placeholder="Enter Employee ID"/><br><br>
+  </div>
+  <div class="form">
+    <label for="name">Name</label>
+    <input type="name" 
+    class="form" 
+    id="name" 
+    name="name" 
+    placeholder="Enter Employee Name"/><br><br>
+  </div>
+  <div class="form">
+    <label for="username">Username</label>
+    <input type="username" 
+    class="form" 
+    id="username" 
+    name="username" 
+    placeholder="Enter Username" min="4" max="25"/><br><br>
+  </div>
+  <div class="form">
+    <label for="password1">Password</label>
+    <input type="password" 
+    class="form" 
+    id="password1" 
+    name="password1" 
+    placeholder="Enter Password" min="8"/><br><br>
+  </div>
+  <div class="form">
+    <label for="password2">Password (Confirm)</label>
+    <input type="password" 
+    class="form" 
+    id="password2" 
+    name="password2" 
+    placeholder="Confirm Password"/><br><br>
+  </div>
+  <div class="form">
+    <label for="adminaccess" class="form">Admin Access:</label>
+    <select id="adminaccess" name="adminaccess" >
+      <option value="no">No</option>
+      <option value="yes">Yes</option>   
+    </select><br><br>
+  </div>
+  <br>
+  <button type="submit">Submit</button>
+</form>
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+<h3>{{message}}</h3>
+{% endfor %}
+{% endif %}
+{% endwith %}

@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{%block content%}
+<div id="Daily" class="w3-container city"><br>
+
+    {% with messages = get_flashed_messages(category_filter = ['error']) %}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-warning alert-dismissible show" role="alert">
+      {{message}}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    {% with messages = get_flashed_messages(category_filter = ['success']) %}
+    {% if messages %}  
+    {% for message in messages %}
+    <div class="alert alert-success alert-dismissible show" role="alert">
+      {{message}}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+
+    <ul class="nav justify-content-end">
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="/leave" style="color: #003f72; font-size: 22px;">Leave</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/permission" style="color: #003f72; font-size: 22px;">Permission</a>
+      </li>
+    </ul>
+
+      <form class="form" id="dls" method="POST"><br><br>   
+        <div id="datestamp"> 
+            <label for="date" style="font-size: 24px;">Select Date: </label><br>
+            <input type="date" id="calender" name="calender" placeholder="DD-MM-YYYY" style="font-size: 20px; border-radius: 8px; background-color: #d9d9d9; width: 180px;"  max="{{datestr}}" min="{{days_ago}}" required>
+            <br>
+         </div> 
+         
+    <label for="project" style="font-size: 24px;">Project:</label><br>
+    <select id="project" name="project" style="width:550px;border-radius: 8px; font-size: 22px; " required  onchange="holiday()">
+          <option disabled selected value></option>
+          {% for projects in project %}
+          <option value="{{projects}}">{{projects}}</option>      
+          {% endfor %}
+    </select>
+    <br>
+    <div class="holiday-section-edit" id="holiday-section-edit">
+    <label for="workfield" style="font-size: 24px;">Field of Work:</label><br>
+    <select id="workfield" name="workfield" style="width:550px;border-radius: 8px; font-size: 22px;" required >
+      <option disabled selected value> </option>    
+      {% for workfield in fieldowork%}
+      <option value="{{workfield}}">{{workfield}}</option>
+      {% endfor %}
+    </select>
+    <br>
+
+    <label for="section" style="font-size: 24px;">Section:</label><br>
+    <select id="section" name="section" style="width:550px;border-radius: 8px; font-size: 22px;" required >
+      <option disabled selected value> </option>
+      {% for sections in section%}
+      <option value="{{sections}}">{{sections}}</option>
+      {% endfor %}
+      </select>
+      <br>
+
+    <label for="dailyactivity" style="font-size: 24px;">Daily Activity:</label><br>
+    <select id="dailyactivity" name="dailyactivity" style="width:550px;border-radius: 8px; font-size: 22px;" required >
+      <option disabled selected value> </option>    
+      {% for activities in dailyactivity %}
+      <option value="{{activities}}">{{activities}}</option>
+      {% endfor %}         
+      </select>
+      <br>
+
+      <label for="manhours" style="font-size: 24px; display: inline-block;">Man Hours:</label>
+      <label for="progress" style="font-size: 24px; display: inline-block;  margin-left: 150px; padding-left: 0%; position: absolute; margin-top: 2px;">Progress:</label><br>
+      <input type="number" id="manhours" name="manhours" min="0.5" step="0.25" style="border-radius: 8px; font-size: 22px; background-color: #d9d9d9; width: 100px; display: inline-block;">
+      <select id="progress" name="progress" style="border-radius: 8px; font-size: 22px; background-color: #d9d9d9; width: 200px; display: inline-block; margin-left: 165px; padding-left: 0%; position: relative;">
+        <option disabled selected value></option>
+        {% for progress in progresses %}
+        <option value="{{progress}}">{{progress}}</option>
+        {% endfor %}
+      </select> 
+      <br>
+
+      <label for="Comments" style="font-size: 24px; ">Comments:</label><br>
+      <textarea name="Comments" rows="5" cols="30" id="comments" style = 'border-radius: 8px; font-size: 20px; width: 550px; background-color: #d9d9d9;' placeholder="" required></textarea>
+      <br><br>
+    </div>
+      <input type="submit" class="submit"><br>
+    </form>
+    </div>
+
+    <script>
+      function holiday(){
+        var hols = document.getElementById('project').value;
+        if(hols == "HOLIDAY (34)"){
+          document.getElementById("workfield").disabled = true;
+          document.getElementById("section").disabled = true;
+          document.getElementById("dailyactivity").disabled = true;
+          document.getElementById("manhours").value = "0";
+          document.getElementById("manhours").disabled = true;
+          document.getElementById("manhours").setAttribute("min","0");
+          document.getElementById("manhours").setAttribute("max","0");
+          document.getElementById("progress").disabled = true;
+          document.getElementById("comments").disabled = true
+        }
+      }
+    </script>
+{%endblock%}

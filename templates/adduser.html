@@ -1,0 +1,73 @@
+{%extends 'AdminEmpPage.html'%}
+{%block admincontent%}
+  <!-- <body style="margin-left: 25%;"> -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/sign_up.css') }}">
+    
+
+  <div style="margin-left: 25%;">
+    <div class="form-container">
+      <br>
+      <img src="{{ url_for('static',filename='images/Logo.png') }}" style="height:15%;width:15%;display: block;margin-left: auto;margin-right: auto;">
+      <!-- <script src="{{ url_for('static',filename='js/sign_up.js') }}"></script> -->
+
+      <div class="password-requirements">
+        <h5 class="requirements-header">Employee Log Sheet Password Requirements:</h5>
+
+        <div id="numberRequirement" class="requirement">
+          <div class="fulfilled-symbol"></div>
+          Contains at least 1 number
+        </div>
+        <div id="lengthRequirement" class="requirement">
+          <div class="fulfilled-symbol"></div>
+          Contains at least 4 characters
+        </div>
+        <div id="lowerCaseRequirement" class="requirement">
+          <div class="fulfilled-symbol"></div>
+          Contains at least 1 lower case letter
+        </div>
+        <div id="upperCaseRequirement" class="requirement">
+          <div class="fulfilled-symbol"></div>
+          Contains at least 1 upper case letter
+        </div>
+        <div id="passwordsMatchRequirement" class="requirement">
+          <div class="fulfilled-symbol"></div>
+          Passwords must match
+        </div>
+      </div>
+
+      <form class="text-center border border-light p-5" 
+      method="POST">
+        {% with messages = get_flashed_messages(category_filter = ['success'])%}
+        {% if messages %}
+        {% for message in messages %}
+        <p style="text-align: center; color: green; font-weight: 600;">{{message}}</p>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        {% with messages = get_flashed_messages(category_filter = ['inputerror'])%}
+        {% if messages %}
+        {% for message in messages %}
+        <p style="text-align: center; color: red; font-weight: 600;">{{message}}</p>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <input required type="PS Number" id="psnum" name="psnum" class="form-control mb-4" placeholder="PS Number" autocomplete="off">
+        <input required type="name" id="name" name="name" class="form-control mb-4" placeholder="Name" autocomplete="off">
+        <input required type="User Name" name='username' id="usernameInput" class="form-control mb-4" placeholder="User Name" autocomplete="off">
+        <input required type="password" id="passwordInput" class="form-control mb-4 input-listener" placeholder="Password">
+        <input required type="password" name="password" id="confirmPasswordInput" class="form-control mb-4 input-listener" placeholder="Confirm Password">
+        <input disabled class="btn btn-info btn-block my-4" id="submitBtn" type="submit" placeholder="Register">
+        <!-- Change to disabled button -->
+        
+      </form>
+    </div>
+</div>
+<script src="{{ url_for('static',filename='js/sign_up.js') }}"></script>
+{%endblock%}

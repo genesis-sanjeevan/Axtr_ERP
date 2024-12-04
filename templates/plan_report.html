@@ -1,0 +1,151 @@
+{%extends 'AdminEmpPage.html'%}
+{%block admincontent%}
+    <style>
+      .plan-style {
+        font-family: Arial, sans-serif;
+        margin-left: 25%;
+      }
+
+      
+     /* Table styles */
+     #task-list {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 20px 0;
+    }
+    #task-list th, #task-list td {
+        padding: 10px;
+        text-align: left;
+        border: 1px solid #ddd;
+    }
+    #task-list th {
+        background-color: #003f72;
+        color: white;
+    }
+    #task-list tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+    #task-list tr:hover {
+        background-color: #ddd;
+    }
+
+    /* Button styles */
+    .button {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 10px;
+        cursor: pointer;
+    }
+
+    /* Form styles */
+    #task-form {
+        display: none;
+        margin: 20px 0;
+    }
+    #task-form label {
+        display: block;
+        margin: 10px 0;
+    }
+    #task-form input, #task-form select, #task-form textarea {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    #task-form input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        cursor: pointer;
+    }
+    #task-form input[type="submit"]:hover {
+        background-color: #3e8e41;
+    }
+    .status-yet-to-start {
+  background-color: lightcoral;
+}
+
+.status-working {
+  background-color: lightyellow;
+}
+
+.status-completed {
+  background-color: lightgreen;
+}
+    </style>
+<div class="plan-style">
+    <body leftmargin="25%">
+	
+  <br><br>
+  <input type="text" id="search-bar" name="search-bar" onkeyup="searchTable()" placeholder="Search by Project name...">
+ <script>function searchTable() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("search-bar");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("task-list");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those that don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1]; // Change this index based on the column you want to search by
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+ }
+ </script>  
+    <table id="task-list" style="width:max-content">
+      <thead>
+      <tr>
+          <th style="width: 75px;">Due Date</th>
+          <th style="width: 190px;">Project Name</th>
+          <th style="width: 190px;">Field</th>
+          <th style="width: 150px;">Section</th>
+          <th style="width: 75px;">Manhours</th>
+          <th style="width: 120px;">Assignee</th>
+          <th>Status</th>
+          <th >Description</th>
+          <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {%for row in table_data%}
+      <tr>
+        <td >{{row[0]}}</td>
+        <td >{{row[1]}}</td>
+        <td >{{row[2]}}</td>
+        <td >{{row[3]}}</td>
+        <td >{{row[4]}}</td>
+        <td >{{row[5]}}</td>
+        <td id = "Status_{{row[1]}}">{{row[6]}}</td>
+        <td >{{row[7]}}</td>
+        <td>
+          <input type="button" name="plan_name" value="Completed" placeholder="Completed">
+        </td>
+      </tr>
+      {%endfor%}
+    </tbody>
+    </table>
+    
+    <script>
+      function changeName(id){
+        var nameCel = document.getElementById("Status_" + id)
+        nameCel.innerText = "Completed"
+      }
+    </script>
+    
+</div>
+{%endblock%}

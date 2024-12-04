@@ -1,0 +1,29 @@
+<form>
+    <label for="dropdown">Select an option:</label><br>
+    <input type="text" id="filterInput" onkeyup="filterOptions()">
+    <select id="dropdown">
+      <option value="option1">Option 1</option>
+      <option value="option2">Option 2</option>
+      <option value="option3">Option 3</option>
+      <option value="option4">Option 4</option>
+    </select>
+  </form>
+  
+  <script>
+    function filterOptions() {
+      // Get the input field
+      var input = document.getElementById("filterInput");
+      // Get the dropdown menu
+      var select = document.getElementById("dropdown");
+      // Get the options in the dropdown menu
+      var options = select.options;
+      // Loop through the options and hide those that don't match the search query
+      for (var i = 0; i < options.length; i++) {
+        if (options[i].text.toUpperCase().indexOf(input.value.toUpperCase()) > -1) {
+          options[i].style.display = "";
+        } else {
+          options[i].style.display = "none";
+        }
+      }
+    }
+  </script>

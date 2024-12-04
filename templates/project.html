@@ -1,0 +1,140 @@
+{%extends 'AdminEmpPage.html'%}
+{%block admincontent%}
+<div class="project-margin"> 
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'css/project.css') }}">
+  <script src="{{ url_for('static',filename='js/sign_up.js') }}"></script>
+    <div class="form-container">
+      <br>
+      <img src="{{ url_for('static',filename='images/Logo.png') }}" style="height:15%;width:15%;display: block;margin-left: auto;margin-right: auto;" >
+      <br>
+      <h3 style="text-align: center; font-weight: 600; color:#2b3da6 ;">Add New Project</h3>
+      <form class="text-center border border-light p-5" method="post" name="form1">
+        {% with messages = get_flashed_messages(category_filter = ['success'])%}
+        {% if messages %}
+        {% for message in messages %}
+        <p style="text-align: center; color: green; font-weight: 600;">{{message}}</p>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        {% with messages = get_flashed_messages(category_filter = ['inputerror'])%}
+        {% if messages %}
+        {% for message in messages %}
+        <p style="text-align: center; color: red; font-weight: 600;">{{message}}</p>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <input required type="text" name="project_id" id="idInput" class="form-control mb-4" placeholder="Project ID" aria-required="true">
+        <input required type="text" id="projectname" name="projectname" class="form-control mb-4 input-listener" placeholder="Project Name" aria-required="true">
+        <div class="alignment">
+        <label for="startdate">Start Date:</label><br><input required type="date" id="startdate"  name="startdate" class="form-control mb-4 input-listener" style="width:50%;" aria-required="true">
+        <label for="targetdate">Target Date:</label><br><input required type="date" id="targetdate" name="enddate" class="form-control mb-4 input-listener" style="width:50%;">
+        <label for="Status">Status:</label>
+        <br>
+  <select id="Status" name="Status" style="width:50%;height:30px;">
+    <option value="Completed">Yet to Start</option>
+    <option value="In Progress">In Progress</option>
+    <option value="Not Started">Completed</option>
+  </select>
+ </div>     
+<button class="btn btn-info btn-block my-4" id="submitBtn" type="submit">Submit</button>
+</form>
+      <div class="center-button">
+        <button onclick="toggleDivision()" style="width:200px;">Edit</button><br>
+      </div>
+      <br><br>
+<style>
+  .center-button{
+  text-align: center;  
+  }
+  #myDivision{
+    text-align: center;
+  }
+</style>
+
+      <div> 
+        <script type="text/javascript">
+            function toggleDivision() {
+              var myDivision = document.getElementById("myDivision");
+              if (myDivision.style.display === "none") {
+                myDivision.style.display = "block";
+              } 
+              else {
+                myDivision.style.display = "none";
+              }
+            }
+        </script>
+
+        <div id="myDivision" style="display: none;">
+                <input type="text" id="myInput1" onkeyup="myFunction1()" placeholder="Search by ID" title="Type in an ID"><br>
+                <br>
+                    </script>
+                    <div class="container">
+                    <div class="table-wrapper">
+                    <div class="table-title">
+                    <div class="row">
+                    </div>
+                    </div>
+
+                  <form method="get" name="form2">
+
+                    <table class="table table-bordered" id="myTable1">
+                      <thead>
+                        <tr>
+                          <th>Project ID<br>&nbsp;</th>
+                          <th>Project Name<br>&nbsp;</th>
+                          <th> <br>&nbsp;</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {%for row in table2_data%}
+                        <tr>
+                          <td >{{row[0]}}</td>
+                          <td >{{row[1]}}</td>
+                          <td><input type="checkbox" value="{{row[0]}}" name="project_name"></td>
+                        </tr>
+                        {%endfor%}
+                      </tbody>
+                    </table>
+                    <br>
+                    <input type="button" name="Update_Database" value="Mark as Completed" onclick="redirect()">
+                    
+                    <br><br>
+                  </form>
+
+                  <script>
+                    function redirect(){
+                      window.location.href='/update_project';
+                    }
+                  </script>
+
+                    <script>
+                        function myFunction1() {
+                          var input, filter, table, tr, td, i, txtValue;
+                          input = document.getElementById("myInput1");
+                          filter = input.value.toUpperCase();
+                          table = document.getElementById("myTable1");
+                          tr = table.getElementsByTagName("tr");
+                          for (i = 0; i < tr.length; i++) {
+                            td = tr[i].getElementsByTagName("td")[0];
+                            if (td) {
+                              txtValue = td.textContent || td.innerText;
+                              if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                tr[i].style.display = "";
+                              } else {
+                                tr[i].style.display = "none";
+                              }
+                            }       
+                          }
+                        }
+                        </script>
+
+                    </div>
+                    </div>
+            </div>
+        
+      </form>
+
+    </div>
+</div>
+{%endblock%}
