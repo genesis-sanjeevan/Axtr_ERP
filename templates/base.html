@@ -15,7 +15,7 @@
 <body>
   
 <div class="sidenav">
-    <img src="{{ url_for('static', filename = 'images/logo.png') }}" alt="L&T" class="center" style="margin-left: auto; margin-right: auto; display: block; width: 50%; align-self: center;">
+    <img src="{{ url_for('static', filename = 'images/logo.png') }}" alt="L&T" class="center" style="margin-left: auto; margin-right: auto; display: block; width: 25%; align-self: center;">
   <div class="emp-detials">
     <h3 style="color: #d9d9d9 ; font-size: 25px; font-weight: bold; text-align: center; margin-top: 0%;">{{Emp_Name}}</h3>
     <h5 style="color: #d9d9d9 ; font-size: 23px; font-weight: bold; text-align: center;">{{Emp_ID}}</h5><br>
@@ -23,21 +23,8 @@
 
   <nav>
     <div class="navbar-components">
-      <button class="dropdown-btn">Actual
-        <i class="fa fa-caret-down"></i>
-      </button>
-      <div class="dropdown-container">
-          <a href="/profile" style="font-size: 22px;">Daily Log Sheet</a>
-          <a href="/actualreportform" style="font-size: 22px;">Reports</a>
-        </ul>
-      </div>
-      <button class="dropdown-btn">Plan
-        <i class="fa fa-caret-down"></i>
-      </button>
-      <div class="dropdown-container">
-          <a href="/employeeplan" style="font-size: 22px;">Reports</a>
-        </ul>
-      </div>
+      <a href="/profile" style="font-size: 27px;">Daily Log Sheet</a>  
+      <a href="/employeeplan" style="font-size: 27px;">Reports</a>
         <a href="/" style="font-size: 27px;">Logout</a>
     </div>
     </div>

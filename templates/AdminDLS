@@ -29,9 +29,7 @@
       <li class="nav-item">
         <a class="nav-link active" aria-current="page" href="/leave" style="color: #003f72; font-size: 20px;">Leave</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/permission" style="color: #003f72; font-size: 20px;">Permission</a>
-      </li>
+      
     </ul>
 
       <form class="form" id="dls" method="POST"><br><br>   
@@ -104,48 +102,8 @@
           }
         }
       }
-    </script>
-    <label for="section" style="font-size: 28px;">Section:</label><br>
-    <select id="section" name="section" style="width:550px;border-radius: 8px; font-size: 22px;" required onkeyup="filterSection()">
-      <option disabled selected value> </option>
-      {% for sections in section%}
-      <option value="{{sections}}">{{sections}}</option>
-      {% endfor %}
-      </select><br><br>
-      <script>
-        function filterSection() {
-          var select = document.getElementById("section");
-          var options = select.options;
-          var filter = select.value;
-          for (var i = 0; i < options.length; i++) {
-            if (options[i].text === filter) {
-              options[i].style.display = "";
-            } else {
-              options[i].style.display = "none";
-            }
-          }
-        }
-      </script>
-    <label for="dailyactivity" style="font-size: 28px;">Daily Activity:</label><br>
-    <select id="dailyactivity" name="dailyactivity" style="width:550px;border-radius: 8px; font-size: 22px;" required onkeyup="filteractivity()">
-      <option disabled selected value> </option>    
-      {% for activities in dailyactivity %}
-      <option value="{{activities}}">{{activities}}</option>
-      {% endfor %}         
-      </select><br><br>
-      <script>
-        function filteractivity() {
-          var select = document.getElementById("dailyactivity");
-          var options = select.options;
-          var filter = select.value;
-          for (var i = 0; i < options.length; i++) {
-            if (options[i].text === filter) {
-              options[i].style.display = "";
-            } else {
-              options[i].style.display = "none";
-            }
-          }
-        }
+
+    
       </script>
       <label for="manhours" style="font-size: 28px; display: inline-block;">Man Hours:</label>
       <label for="progress" style="font-size: 28px; display: inline-block;  margin-left: 130px; padding-left: 0%; position: absolute; margin-top: 2px;">Progress:</label><br>
@@ -184,8 +142,6 @@
         if(hols == "HOLIDAY (34)"){
           // document.getElementById("holiday-section-edit").innerHTML = "<p></p>";
           document.getElementById("workfield").disabled = true;
-          document.getElementById("section").disabled = true;
-          document.getElementById("dailyactivity").disabled = true;
           document.getElementById("manhours").value = "0";
           document.getElementById("manhours").setAttribute("min","0");
           document.getElementById("manhours").setAttribute("max","0");

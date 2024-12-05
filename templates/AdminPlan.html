@@ -207,8 +207,6 @@ nav ul{
                         var leave = document.getElementById("project").innerHTML;
                         if(leave = "(35) LEAVE - HALF DAY"){
                           document.getElementById("workfield").innerHTML = " ";
-                          document.getElementById("section").innerHTML = " ";
-                          document.getElementById("dailyactivity").innerHTML = " ";
                           document.getElementById("manhours").setAttribute("max",4);
                           document.getElementById("manhours").setAttribute("min",3.5);
                         }
@@ -241,8 +239,6 @@ nav ul{
     var leave = document.getElementById("project").innerHTML;
     if(leave = "(35) LEAVE - HALF DAY"){
       document.getElementById("workfield").innerHTML = " ";
-      document.getElementById("section").innerHTML = " ";
-      document.getElementById("dailyactivity").innerHTML = " ";
       document.getElementById("manhours").setAttribute("max",4);
       document.getElementById("manhours").setAttribute("min",3.5);
     }
@@ -270,14 +266,7 @@ nav ul{
               {% endfor %}
             </select><br><br>
             
-            
-            <label for="section" style="font-size: 28px;">Section:</label><br>
-            <select id="section" name="SectioN" style="width:550px;border-radius: 8px; font-size: 22px;" required>
-              <option disabled selected value> </option>
-              {% for sections in section%}
-              <option value="{{workfield}}">{{sections}}</option>
-              {% endfor %}
-              </select><br><br>
+ 
         
             
               <label for="manhours" style="font-size: 28px; display: inline-block;">Man Hours:</label>
