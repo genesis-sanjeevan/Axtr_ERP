@@ -1,129 +1,233 @@
 /* General Styles */
+
+@font-face {
+  font-family: 'CustomFont';
+  src:url('C: /Users/sanje/OneDrive/Desktop/axtr/ERP/Axtr_ERP/static/css/Fonts/bodoni -72px smallcaps book .ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
-  font-family: Arial, Helvetica, sans-serif;
   margin: 0;
-  background-image: url("../images/background.jpg"); /* Adjust the path as needed */
-  background-size: cover;
-  background-position: center;
+  font-family: 'DM Sans', sans-serif;
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center; /* Center align horizontally */
+  justify-content: center; /* Center align vertically */
+  background-color: #121212;
   color: white;
   display: flex;
-  align-items: center;
-  justify-content: center;
   height: 100vh;
+  background-image: url("../images/background.jpg");
+  background-size: cover;
+  background-position: center;
+}
+.containerShadow {
+  position: absolute; /* Position it relative to its closest positioned ancestor */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Offset to align perfectly with .container */
+  width: 90%; /* Match the width of .container */
+  max-width: 400px; /* Match the max-width of .container */
+  height: auto; /* Allow dynamic height */
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent black for shadow effect */
+  border-radius: 15px; /* Match border-radius of .container */
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5); /* Optional: Add a subtle shadow effect */
+  z-index: -1; /* Ensure it stays behind .container */
 }
 
 /* Container */
 .container {
-  display: flex;
-  justify-content: space-between;
-  background: rgba(0, 0, 0, 0.8);
-  border-radius: 10px;
-  padding: 20px;
-  width: 70%;
-  max-width: 900px;
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
-}
-
-/* Left Section */
-.left-section {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+   position: relative; /* Establishes a positioning context */
+  background: rgba(0, 0, 0, 0.85);
+  border-radius: 15px;
+  padding: 40px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.5);
   text-align: center;
+  z-index: 1; /* Ensures it stays above the shadow */
+  
 }
 
-.left-section img {
-  width: 150px;
-  height: auto;
+.logo {
+  position: fixed; /* Keep the logo fixed in place */
+  bottom: 10px; /* Align to the bottom with a small gap */
+  left: 10px; /* Align to the left with a small gap */
+  background: rgba(0, 0, 0, 0); /* Optional: semi-transparent background */
+  padding: 10px;
+  border-radius: 8px;
+  z-index: 1000; /* Ensure it stays above other elements */
+  width: 80px; /* Set the width of the logo */
+  height: auto; /* Maintain the aspect ratio */
 }
 
-/* Right Section */
-.right-section {
-  flex: 1;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;  /* Stack elements vertically */
-  align-items: center;     /* Center elements horizontally */
-  justify-content: center; /* Center content vertically */
+/* If you want to further control the size */
+.logo img {
+  width: 100%; /* Scale the image to fit the container */
+  height: auto; /* Maintain aspect ratio */
 }
 
-/* Title Style */
-.right-section h1 {
-  font-family: "DM Sans", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 400; /* Choose a weight that works well for your design */
-  font-style: normal;
-  margin-bottom: 10px; /* Adds space below the title */
+/* Title */
+h1 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  
+  padding: 15px
+  
+}
+.header{
+  text-align: center;
+  margin-bottom: -10px;
 }
 
-/* Form */
+.header h1 {
+  font-family:"CustomFont",bodoni-72-smallcaps-book;
+  text-transform: initial;
+  font-size: 35px;
+  font-weight: 700;
+  text-align: center;
+  color: white;
+}
+
+.header h1 span {
+  font-family:"CustomFont",bodoni-72-smallcaps-book;
+  /* display: block; Forces the text onto the next line */
+  font-size: 58px; /* Optional: Adjust font size for "The AI Company" */
+  /* margin-top: -10px; Optional: Add space between the lines */
+}
+
+.header2 h1 {
+  font-family:"CustomFont",bodoni-72-smallcaps-book;
+  text-transform: initial;
+  font-size: 30px;
+  font-weight: 400;
+  text-align: center;
+  margin-top: -45px;
+  margin-bottom: -80px;
+  color: white;
+}
+
+.header2 h1 span {
+  font-family:"CustomFont",bodoni-72-smallcaps-book;
+  /* display: block; Forces the text onto the next line */
+  font-size: 40px; /* Optional: Adjust font size for "The AI Company" */
+  /* margin-top: -10px; Optional: Add space between the lines */
+}
+
+.title {
+  
+  font-size: 33px;
+  font-weight: 700;
+  text-align: center;
+  margin-top: 0px;
+  margin-bottom: -40px; /* Space between header and container */
+  color: white;
+
+}
+
+/* Form Styles */
 .form {
   display: flex;
-  flex-direction: column; /* Stack inputs vertically */
-  gap: 10px;  /* Adjust the gap between inputs */
-  width: 100%; /* Ensure form fields take up full width */
-  align-items: center; /* Center the inputs */
+  flex-direction: column;
+  gap: 10px;
 }
 
-input[type="text"], input[type="password"] {
-  width: 80%; /* Adjust width to be 80% of the form width */
-  padding: 10px;
+.form input[type="text"],
+.form input[type="password"] {
+  width: 100%;
+  padding: 15px;
   border: none;
   border-radius: 5px;
   background: #222;
   color: white;
+  font-size: 14px;
 }
-
-input[type="submit"] {
-  width: 80%; /* Same width as the input fields */
-  padding: 10px;
+/*
+.form input[type="submit"] {
+  padding: 15px;
+  width: 100%;
   background-color: #007bff;
   color: white;
+  text-align: center;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
-}
-
-input[type="submit"]:hover {
-  background-color: #0056b3;
-}
-
-/* Social Buttons */
-.social-buttons {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 20px;
-}
-
-.social-buttons img {
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
-}
-
-/* Flash Message */
-p.valid {
-  text-align: center;
-  color: #f30d0d;
   font-weight: 500;
-  padding-top: 2px;
-  font-size: 10px;  /* Reduce the text size */
-  margin-top: 5px; /* Add space between social buttons and the message */
-  margin-bottom: 5px; /* Add space at the bottom for consistency */
-} 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .container {
-      flex-direction: column;
-      width: 90%;
-  }
+  text-transform: uppercase;
+  margin: 0 auto;
+}
+*/
 
-  .left-section, .right-section {
-      flex: none;
-      text-align: center;
-      padding: 10px;
-  }
+
+
+.btn2 {
+  position: relative;
+  display: inline-block;
+  padding: 15px 30px;
+  margin-top: 15px;
+  border: 2px solid #fefefe;
+  text-transform: uppercase;
+  color: #fefefe;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 20px;
+  transition: 0.3s;
+}
+
+.btn2::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: calc(100% + 4px);
+  height: calc(100% - -2px);
+  background-color: #212121;
+  transition: 0.3s ease-out;
+  transform: scaleY(1);
+}
+
+.btn2::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: calc(100% + 4px);
+  height: calc(100% - 50px);
+  background-color: #212121;
+  transition: 0.3s ease-out;
+  transform: scaleY(1);
+}
+
+.btn2:hover::before {
+  transform: translateY(-25px);
+  height: 0;
+}
+
+.btn2:hover::after {
+  transform: scaleX(0);
+  transition-delay: 0.15s;
+}
+
+.btn2:hover {
+  border: 2px solid #fefefe;
+}
+
+.btn2 span {
+  position: relative;
+  z-index: 3;
+}
+
+button {
+  text-decoration: none;
+  border: none;
+  background-color: transparent;
+}
+
+/* Flash Messages */
+p.valid {
+  color: #28a745;
+  margin-top: 15px;
+  font-size: 14px;
 }

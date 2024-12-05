@@ -90,6 +90,8 @@ def add_user():
     return render_template("adduser.html", Emp_ID = Emp_ID, Emp_Name=name)
 
 @app.route('/addproject', methods = ['POST','GET'])
+
+
 def add_project():
     eusername = session.get('username')
     query = "SELECT * FROM EMPLOYEE_DATA WHERE username = ?"
@@ -148,6 +150,7 @@ def add_project():
             # except sqlite3.Error as error:
             #     flash('Error occured while Updating the Database! Please Try Again!', category= 'inputerror')
     return render_template('project.html',table2_data=table2_data,  Emp_ID = Emp_ID, Emp_Name=name)
+
 
 @app.route('/admindls')
 def admin_dls():

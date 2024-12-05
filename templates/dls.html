@@ -37,7 +37,7 @@
       <form class="form" id="dls" method="POST"><br><br>   
         <div id="datestamp"> 
             <label for="date" style="font-size: 24px;">Select Date: </label><br>
-            <input type="date" id="calender" name="calender" placeholder="DD-MM-YYYY" style="font-size: 20px; border-radius: 8px; background-color: #d9d9d9; width: 180px;"  max="{{datestr}}" min="{{days_ago}}" required>
+            <input type="date" id="calender" name="calender" placeholder="DD-MM-YYYY" style="font-size: 20px; border-radius: 8px; background-color: #ffffff; width: 180px;"  max="{{datestr}}" min="{{days_ago}}" required>
             <br>
          </div> 
          
@@ -79,8 +79,8 @@
 
       <label for="manhours" style="font-size: 24px; display: inline-block;">Man Hours:</label>
       <label for="progress" style="font-size: 24px; display: inline-block;  margin-left: 150px; padding-left: 0%; position: absolute; margin-top: 2px;">Progress:</label><br>
-      <input type="number" id="manhours" name="manhours" min="0.5" step="0.25" style="border-radius: 8px; font-size: 22px; background-color: #d9d9d9; width: 100px; display: inline-block;">
-      <select id="progress" name="progress" style="border-radius: 8px; font-size: 22px; background-color: #d9d9d9; width: 200px; display: inline-block; margin-left: 165px; padding-left: 0%; position: relative;">
+      <input type="number" id="manhours" name="manhours" min="0.5" step="0.25" style="border-radius: 8px; font-size: 22px; background-color: #ffffff; width: 100px; display: inline-block;">
+      <select id="progress" name="progress" style="border-radius: 8px; font-size: 22px; background-color: #ffffff; width: 200px; display: inline-block; margin-left: 165px; padding-left: 0%; position: relative;">
         <option disabled selected value></option>
         {% for progress in progresses %}
         <option value="{{progress}}">{{progress}}</option>
@@ -89,7 +89,7 @@
       <br>
 
       <label for="Comments" style="font-size: 24px; ">Comments:</label><br>
-      <textarea name="Comments" rows="5" cols="30" id="comments" style = 'border-radius: 8px; font-size: 20px; width: 550px; background-color: #d9d9d9;' placeholder="" required></textarea>
+      <textarea name="Comments" rows="5" cols="30" id="comments" style = 'border-radius: 8px; font-size: 20px; width: 550px; background-color: #ffffff;' placeholder="" required></textarea>
       <br><br>
     </div>
       <input type="submit" class="submit"><br>
