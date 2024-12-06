@@ -69,7 +69,6 @@ def add_user():
             password = request.form.get('password')
             access = 0
             rows = cursor.fetchall()
-            # print(rows)
                 
             data_list = [psnum,name,username,generate_password_hash(password), access]
 
@@ -81,14 +80,43 @@ def add_user():
                 cursor.executemany(command, [data_list])
                 connection.commit()
                 print('Data inserted successfully!')
+
+                # Create CSV file for the new user
+                import os
+                
+                # Check if the directory exists
+                log_sheets_dir = "Dataset/Log Sheets"
+                if not os.path.exists(log_sheets_dir):
+                    try:
+                        os.makedirs(log_sheets_dir)
+                        print(f"Created directory: {log_sheets_dir}")
+                    except Exception as dir_error:
+                        print(f"Error creating directory: {dir_error}")
+                        flash(f"Error creating log sheet directory: {dir_error}", category='error')
+                        return render_template("adduser.html", Emp_ID = Emp_ID, Emp_Name=name)
+
+                csv_filename = f"{log_sheets_dir}/{psnum}-{name}.csv"
+                
+                try:
+                    # Create the CSV with headers
+                    with open(csv_filename, 'w', newline='') as csvfile:
+                        csv_writer = csv.writer(csvfile)
+                        csv_writer.writerow([
+                            'DATE', 'PROJECT', 'FIELD_OF_WORK', 'MAN_HOURS', 
+                            'PROGRESS', 'COMMENTS'
+                        ])
+                    print(f"Created CSV file: {csv_filename}")
+                except Exception as file_error:
+                    print(f"Error creating CSV file: {file_error}")
+                    flash(f"Error creating log sheet: {file_error}", category='error')
+
                 flash('Registered Successfully!', category='success')
-                connection.close()
         
             except sqlite3.Error as error:
+                    print(f"Database error: {error}")
                     flash('Credentials already in use!', category= 'inputerror')
 
     return render_template("adduser.html", Emp_ID = Emp_ID, Emp_Name=name)
-
 @app.route('/addproject', methods = ['POST','GET'])
 
 
