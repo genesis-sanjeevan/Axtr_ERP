@@ -117,9 +117,8 @@ def add_user():
                     flash('Credentials already in use!', category= 'inputerror')
 
     return render_template("adduser.html", Emp_ID = Emp_ID, Emp_Name=name)
+
 @app.route('/addproject', methods = ['POST','GET'])
-
-
 def add_project():
     eusername = session.get('username')
     query = "SELECT * FROM EMPLOYEE_DATA WHERE username = ?"
@@ -128,56 +127,36 @@ def add_project():
     Emp_ID = record[0]
     name = record[1].replace('_',' ')
 
-    cursor.execute("SELECT * FROM PROJECT_DATA")
-    result = cursor.fetchall()
-    table2_data=[]
-    for i in result:
-        if i[4] == 'Completed':
-            pass
-        else:
-            table2_data.append(i)
+    # Fetch existing non-completed projects
+    cursor.execute("SELECT * FROM PROJECT_DATA WHERE STATUS != 'Completed'")
+    table2_data = cursor.fetchall()
 
     if request.method == 'POST':
         project_id = request.form.get('project_id')
-        project_name = request.form.get('projectname')
+        PROJ_NAME = request.form.get('projectname')
         start_date = request.form.get('startdate')
         target_date = request.form.get('targetdate')
         status = request.form.get('Status')
 
-        project_data_list = [project_id,project_name,start_date,target_date,status,'']
-
         try:
+            # Insert new project into PROJECT_DATA table
             command = """INSERT INTO PROJECT_DATA
                         (PROJ_ID, PROJ_NAME, START_DATE, TARGET_DATE, STATUS, COMPLETION_DATE)
-                        VALUES(?,?,?,?,?);"""
+                        VALUES(?,?,?,?,?,?)"""
         
-            cursor.executemany(command, [project_data_list])
+            # Note: Added an empty string for COMPLETION_DATE as it's not yet completed
+            project_data_list = [project_id, PROJ_NAME, start_date, target_date, status, '']
+
+            cursor.execute(command, project_data_list)
             connection.commit()
-            print('Data inserted successfully!')
+            
             flash('Project Added to Database Successfully!', category='success')
-            connection.close()
         
         except sqlite3.Error as error:
-            flash('Entered Credentials are already in use!', category= 'inputerror')
+            print(f"Database error: {error}")
+            flash('Error occurred while adding project. Please try again!', category='inputerror')
 
-    # if request.method == 'GET':
-    #     project_idd = request.form.getlist('project_name')
-    #     print(project_idd)
-    #     flash('Project marked as Completed Successfully!', category='success')
-            # try:
-            #     command = """UPDATE PROJECT_DATA
-            #             SET STATUS='Completed', COMPLETION_DATE={completion_date}
-            #         WHERE PROJ_ID={project_id}""".format(completion_date,project_id)
-        
-            #     cursor.executemany(command, [project_data_list])
-            #     connection.commit()
-            #     print('Data inserted successfully!')
-            #     flash('Project Added to Database Successfully!', category='success')
-            #     connection.close()
-        
-            # except sqlite3.Error as error:
-            #     flash('Error occured while Updating the Database! Please Try Again!', category= 'inputerror')
-    return render_template('project.html',table2_data=table2_data,  Emp_ID = Emp_ID, Emp_Name=name)
+    return render_template('project.html', table2_data=table2_data, Emp_ID=Emp_ID, Emp_Name=name)
 
 
 @app.route('/admindls')
@@ -187,31 +166,21 @@ def admin_dls():
     cursor.execute(query, (eusername,))
     record = cursor.fetchone()
     Emp_ID = record[0]
-    name = record[1].replace('_',' ')
+    name = record[1].replace('_', ' ')
 
-     #SETTING FORM DROPDOWN OPTIONS FROM PROJECT_TYPES CSV FILE#
-    formval = pd.read_csv('Dataset\Master\Project_Types.csv')
-    cols = formval.columns.values
-    fulllist =[] 
-    for i in cols:
-        if "Unnamed" in i:
-            pass
-        else:
-            l=[]
-            for j in formval[i]:
-                if type(j) is not str:
-                    if math.isnan(j):
-                        pass
-                    else:
-                        l.append(j)
-                else:
-                    l.append(j)
-            fulllist.append(l)
+    # FETCHING DROPDOWN OPTIONS FROM DATABASE (REPLACING CSV LOGIC)
+    project_query = "SELECT DISTINCT PROJ_NAME FROM PROJECT_DATA"
+    cursor.execute(project_query)
+    projects = [row[0] for row in cursor.fetchall()]
 
-    print(fulllist)
+    print("Projects:", projects)
 
-    return render_template('admin_dls.html',project = fulllist[1], fieldowork = fulllist[2], section = fulllist[3], dailyactivity = fulllist[4], progresses = fulllist[5],
-                           Emp_ID = Emp_ID, Emp_Name=name)
+    return render_template(
+        'admin_dls.html',
+        project=projects,
+        Emp_ID=Emp_ID,
+        Emp_Name=name
+    )
 
 @app.route('/adminleave')
 def admin_leave():
@@ -246,60 +215,6 @@ def admin_actual_report():
 
     return render_template('admin_actual_report.html', Emp_ID = Emp_ID, Emp_Name=name)
 
-@app.route('/adminplandatalog', methods = ['POST','GET'])
-def admin_plan():
-
-    eusername = session.get('username')
-    query = "SELECT * FROM EMPLOYEE_DATA WHERE username = ?"
-    cursor.execute(query, (eusername,))
-    record = cursor.fetchone()
-    Emp_ID = record[0]
-    name = record[1].replace('_',' ')
-    cursor.execute("SELECT * FROM EMPLOYEE_DATA")
-    data_table1 = cursor.fetchall()
-
-    formval = pd.read_csv('Dataset\Master\Project_Types.csv')
-    cols = formval.columns.values
-    fulllist =[] 
-    for i in cols:
-        if "Unnamed" in i:
-            pass
-        else:
-            l=[]
-            for j in formval[i]:
-                if type(j) is not str:
-                    if math.isnan(j):
-                        pass
-                    else:
-                        l.append(j)
-                else:
-                    l.append(j)
-            fulllist.append(l)
-
-    if request.method == 'POST':
-        due_date = request.form.get('calender')
-        project_name = request.form.get('project')
-        fieldowork_name = request.form.get('workfield')
-        section_name = request.form.get('section')
-        assigned_man_hours = request.form.get('manhours')
-        assigned_employee = request.form.getlist('selected-employee-list')
-        comments = request.form.get('Comments')
-
-        for i in assigned_employee:
-            q='''INSERT INTO ADMIN_PLAN(DUE_DATE,PROJECT,FIELD_OF_WORK,SECTION,ASSIGNED_MANHOURS,ASSIGNED_TO,STATUS,COMMENTS,ASSIGNED_BY) VALUES(?,?,?,?,?,?,?,?,?)'''
-            
-            data_list = [due_date,project_name,fieldowork_name,section_name,int(assigned_man_hours),i,"In Progress",comments,Emp_ID]
-
-            cursor.execute(q,data_list)
-            connection.commit()
-
-        flash("Task Assigned Successfully!")
-           
-        # print(due_date,project_name,fieldowork_name,section_name,assigned_man_hours,assigned_employee,comments)
-
-
-
-    return render_template('planform_admin.html', Emp_ID = Emp_ID, Emp_Name=name,table1_data=data_table1, project = fulllist[1], fieldowork = fulllist[2], section = fulllist[3])
 
 @app.route('/view_assigned_tasks')
 def view_assigned_task():
@@ -321,7 +236,7 @@ def view_assigned_task():
     for i in data_table1:
         if i[0] < datestr:
             update_query ='''UPDATE ADMIN_PLAN SET STATUS = ?  WHERE 
-                            PROJECT = ? AND FIELD_OF_WORK = ? AND SECTION = ? AND ASSIGNED_MANHOURS = ? AND 
+                            PROJECT = ? AND FIELD_OF_WORK = ? AND ASSIGNED_MANHOURS = ? AND 
                             ASSIGNED_TO = ? AND ASSIGNED_BY = ?'''
             update_query_support_list = ["OverDue",i[1],i[2],i[3],i[4],i[5],i[8]]
             cursor.execute(update_query,update_query_support_list)
@@ -419,84 +334,72 @@ def admin_report():
 
 
 
-@app.route('/profile', methods = ["POST","GET"])
-# @login_required
+@app.route('/profile', methods=["POST", "GET"])
 def emp_profile():
-    #FETCHING DATA FROM DATABASE#
+    # FETCHING DATA FROM DATABASE
     eusername = session.get('username')
     query = "SELECT * FROM EMPLOYEE_DATA WHERE username = ?"
     cursor.execute(query, (eusername,))
     record = cursor.fetchone()
     Emp_ID = record[0]
-    name = record[1].replace('_',' ')
+    name = record[1].replace('_', ' ')
 
-    #SETTING FORM DROPDOWN OPTIONS FROM PROJECT_TYPES CSV FILE#
-    formval = pd.read_csv('Dataset\Master\Project_Types.csv')
-    cols = formval.columns.values
-    fulllist =[] 
-    for i in cols:
-        if "Unnamed" in i:
-            pass
-        else:
-            l=[]
-            for j in formval[i]:
-                if type(j) is not str:
-                    if math.isnan(j):
-                        pass
-                    else:
-                        l.append(j)
-                else:
-                    l.append(j)
-            fulllist.append(l)
+    # FETCHING PROJECT TYPES FROM DATABASE (REPLACING CSV LOGIC)
+    project_query = "SELECT DISTINCT PROJ_NAME FROM PROJECT_DATA"
+    cursor.execute(project_query)
+    projects = [row[0] for row in cursor.fetchall()]
 
-    #SELECTING CSV FILE FROM LOG SHEET FOLDER#
+    fieldwork_query = "SELECT DISTINCT field_of_work FROM FIELD_OF_WORK"  # Replace with actual column name
+    cursor.execute(fieldwork_query)
+    fieldworks = [row[0] for row in cursor.fetchall()]
+
+    # SELECTING LOG SHEET FILE FROM LOG SHEET FOLDER
     path = "Dataset/Log Sheets"
     files = []
     file = 0
     for i in os.listdir(path):
-        if os.path.isfile(os.path.join(path,i)) and Emp_ID in i:
+        if os.path.isfile(os.path.join(path, i)) and Emp_ID in i:
             files.append(i)
-            file = file+1
+            file += 1
             print(i)
     if file == 0:
         print("No Log Sheet Of User Found")
-    fileloc = path+"/"+files[0]
+    fileloc = os.path.join(path, files[0])
     session['fileloc'] = fileloc
 
-    #CAPTURING FORM DATA FROM DLS#
+    # CAPTURING FORM DATA FROM DLS
     if request.method == "POST":
         date_ = request.form.get("calender")
         project = request.form.get("project")
         fieldowork = request.form.get("workfield")
-        dlssection = request.form.get("section")
-        dlsdailyactivity = request.form.get("dailyactivity")
         manhours = request.form.get("manhours")
         progress = request.form.get("progress")
         comments = request.form.get("Comments")
         if project.startswith("HOLIDAY"):
-            completelist = [date_, project, project, project, project, manhours, progress, comments]
+            completelist = [date_, project, manhours, progress, comments]
         else:
-            completelist = [date_, project, fieldowork, dlssection, dlsdailyactivity, manhours, progress, comments]
+            completelist = [date_, project, fieldowork, manhours, progress, comments]
         print(completelist)
-        #WRITING IN THE CSV FILE#
-        with open(fileloc,"a") as ls:
+
+        # WRITING TO THE CSV FILE
+        with open(fileloc, "a") as ls:
             data = csv.writer(ls)
             data.writerow(completelist)
 
-        ls = pd.read_csv(fileloc, usecols=['DATE','MAN_HOURS'])
+        ls = pd.read_csv(fileloc, usecols=['DATE', 'MAN_HOURS'])
 
-        dates=ls['DATE'].tolist()
-        man_hours=ls['MAN_HOURS'].tolist()
+        dates = ls['DATE'].tolist()
+        man_hours = ls['MAN_HOURS'].tolist()
 
-        x=zip(dates,man_hours)
-        l=list(x)
-        d=dict()
+        x = zip(dates, man_hours)
+        l = list(x)
+        d = dict()
         for i in l:
             if i[0] is not np.nan:
-                d[i[0]]=0
+                d[i[0]] = 0
         for j in l:
             if j[1] is not np.nan and j[0] is not np.nan:
-                d[j[0]]+=j[1]
+                d[j[0]] += j[1]
         now = date.today()
         date_string = now.strftime('%Y-%m-%d')
         for key, value in d.items():
@@ -504,19 +407,25 @@ def emp_profile():
                 b = {value}
                 for i in b:
                     if i < 8:
-                        a = 8-i
-                        msg = "Remaining {a} hour(s) of log is need to be filled!".format(a=a)
-                        flash(msg, category='error')    
-                    elif i >= 8 :
-                        msg1 = "Today's log entered successfully ({ab}) ({hours} hours)".format(ab=now.strftime('%d-%m-%Y'), hours=i)
+                        a = 8 - i
+                        msg = f"Remaining {a} hour(s) of log is need to be filled!"
+                        flash(msg, category='error')
+                    elif i >= 8:
+                        msg1 = f"Today's log entered successfully ({now.strftime('%d-%m-%Y')}) ({i} hours)"
                         flash(msg1, category='success')
-        
+
         flash("Log Submitted Successfully!", category='success')
 
-    return render_template('dls.html', project = fulllist[1], fieldowork = fulllist[2], section = fulllist[3], dailyactivity = fulllist[4], progresses = fulllist[5],
-                            Emp_ID = Emp_ID, Emp_Name = name, datestr = datestr, 
-                            days_ago = days_ago
-                            )   
+    return render_template(
+        'dls.html',
+        project=projects,  # Passing project names fetched from DB
+        fieldowork=None,   # Replace with actual options if applicable
+        section=None,      # Replace with actual options if applicable
+        dailyactivity=None, # Replace with actual options if applicable
+        progresses=None,   # Replace with actual options if applicable
+        Emp_ID=Emp_ID,
+        Emp_Name=name
+    )
 
 @app.route('/leave', methods = ["GET","POST"])
 # @login_required
@@ -620,7 +529,7 @@ def empdashboard():
         if date in dates:
             a.append((ls.loc[i]).tolist())
     print(a)
-    df=pd.DataFrame(a,columns=['DATE','PROJECT','FIELD_OF_WORK','SECTION','DAILY_ACTIVITY','MAN_HOURS','PROGRESS','COMMENTS'])
+    df=pd.DataFrame(a,columns=['DATE','PROJECT','FIELD_OF_WORK','MAN_HOURS','PROGRESS','COMMENTS'])
     dfs = df['MAN_HOURS'].sum()
     print(df)
     print(dfs)
